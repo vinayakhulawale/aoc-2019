@@ -19,16 +19,17 @@ fn read_module_mass(path: &str) -> Result<Vec<i32>, io::Error>{
     Ok(v)
 }
 
-fn part1(all_masses: Vec<i32>) {
+fn part1(all_masses: Vec<i32>) -> i32 {
     let mut fuel_for_all_modules= 0;
     for mass in all_masses.iter() {
         let fuel_required = (*mass as f32/ 3.0).floor() as i32 - 2;
         fuel_for_all_modules += fuel_required;
     }
     println!(" PART1 :: Fuel required for all modules  is {}", fuel_for_all_modules);
+    fuel_for_all_modules
 }
 
-fn part2(all_masses: Vec<i32>) {
+fn part2(all_masses: Vec<i32>) -> i32 {
     let mut fuel_for_all_modules= 0;
     for mass in all_masses.iter() {
         let mut fuel_required = (*mass as f32/ 3.0).floor() as i32 - 2;
@@ -38,10 +39,24 @@ fn part2(all_masses: Vec<i32>) {
         }
     }
     println!(" PART2 :: Fuel required for all modules  is {}", fuel_for_all_modules);
+    fuel_for_all_modules
 }
 
 fn main() {
     let all_masses = read_module_mass("src/input/module_mass.txt").unwrap();
     part1(all_masses.clone());
     part2(all_masses.clone());
+}
+
+
+#[test]
+fn test_part1(){
+    let all_masses = read_module_mass("src/input/module_mass.txt").unwrap();
+    assert_eq!(3239503, part1(all_masses), "Fuel required should be 3239503");
+}
+
+#[test]
+fn test_part3(){
+    let all_masses = read_module_mass("src/input/module_mass.txt").unwrap();
+    assert_eq!(4856390, part2(all_masses), "Fuel required should be 4856390");
 }
